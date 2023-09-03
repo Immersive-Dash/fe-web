@@ -5,17 +5,19 @@ import Dashboard from './pages/dashboard/dashboard';
 import Login from './pages/login/login';
 import UserPage from './pages/user/userPage';
 import ClassPage from './pages/class/classPage';
+import MenteePage from './pages/mentee/menteePage';
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route index element={<Landing />} />
-          <Route path='/login' element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user" element={<UserPage />} />
             <Route path="/class" element={<ClassPage />} />
+            <Route path="/mentee" element={<MenteePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
