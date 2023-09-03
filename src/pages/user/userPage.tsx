@@ -1,11 +1,34 @@
+import { useState } from "react"
 import { LuEdit,LuTrash } from "react-icons/lu"
+import Popup from "../../components/popup/popup"
 const UserPage = () => {
+  const [open, setOpen] = useState(false)
+  const handleClose = () => {
+    setOpen(false)
+  }
+  const handleOpen = () => {
+    setOpen(true)
+  }
   return (
     <div className="p-10" >
       <div className="flex p-4 justify-between items-center">
         <h1 className="font-bold text-2xl">List User</h1>
-        <button type="button" className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center">Add User</button>
+        <button onClick={()=> handleOpen()} type="button" className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center">Add User</button>
       </div>
+      {
+        open && (
+          <Popup onConfirm={handleClose}>
+            <div className="p-4 bg-red-300">
+              sdsd
+            </div>
+            <div>
+              <button onClick={handleClose}>
+                close
+              </button>
+            </div>
+          </Popup>
+        )
+      }
       <div className="relative py-4 overflow-x-auto sm:rounded-lg">
         <table className="w-full text-sm text-left border-4 text-black">
           <thead className="text-xs text-black uppercase border-b-2 border-b-gray-400">
