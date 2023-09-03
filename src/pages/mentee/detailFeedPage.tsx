@@ -1,4 +1,14 @@
+import { useState } from 'react'
+import Popup from '../../components/popup/popup'
+import { LuXCircle } from 'react-icons/lu'
 const DetailFeedPage = () => {
+    const [open, setOpen] = useState(false)
+    const handleClose = () => {
+        setOpen(false)
+    }
+    const handleOpen = () => {
+        setOpen(true)
+    }
     return (
         <div className="px-8 py-10 container mx-auto">
             <div className="grid grid-cols-12 items-center px-4">
@@ -36,8 +46,45 @@ const DetailFeedPage = () => {
                 </div>
             </div>
             <div className="w-full flex justify-end py-5  items-center px-4">
-                <button type="button" className=" font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-5 py-3 text-center">Add New Log</button>
+                <button onClick={() => handleOpen()} type="button" className=" font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-5 py-3 text-center">Add New Log</button>
             </div>
+            {
+                open && (
+                    <Popup onConfirm={handleClose}>
+                        <div className="relative w-full max-w-md max-h-full">
+                            <div className="relative bg-white rounded-lg shadow">
+                                <button type="button" onClick={() => handleClose()} className="absolute top-3 right-2.5 bg-transparent hover:bg-gray-200 rounded-full text-black w-8 h-8 inline-flex justify-center items-center" data-modal-hide="authentication-modal"><LuXCircle size={20} />
+                                </button>
+                                <div className="px-6 py-6 lg:px-8">
+                                    <h3 className="mb-4 text-xl font-bold text-black">Add New Feedback</h3>
+                                    <form className="space-y-4" action="#">
+                                        <div className="w-full">
+                                            <label className="block text-sm font-medium text-black">Feedback</label>
+                                            <textarea name="email" className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5" />
+                                        </div>
+                                        <div className="w-full">
+                                            <label className="block text-sm font-medium text-black">Status</label>
+                                            <select className="py-2 px-2 w-full rounded bg-slate-200">
+                                                <option>Interviw</option>
+                                                <option>Join Class</option>
+                                                <option>Unit 1</option>
+                                                <option>Unit 2</option>
+                                                <option>Unit 3</option>
+                                                <option>Placement</option>
+                                                <option>Graduate</option>
+                                            </select>
+                                        </div>
+                                        <div className="flex gap-2 py-2 justify-end">
+                                            <button type="submit" onClick={() => handleClose()} className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center">Cancel</button>
+                                            <button type="submit" className=" text-white bg-[#03034F] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </Popup>
+                )
+            }
             <div className="space-y-3">
                 <div className="border-2 flex gap-2 rounded-md border-black p-2">
                     <div className="text-sm w-1/4 font-semibold">
