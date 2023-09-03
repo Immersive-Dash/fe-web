@@ -6,6 +6,7 @@ import Login from './pages/login/login';
 import UserPage from './pages/user/userPage';
 import ClassPage from './pages/class/classPage';
 import MenteePage from './pages/mentee/menteePage';
+import DetailFeedPage from './pages/mentee/detailFeedPage';
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/user" element={<UserPage />} />
             <Route path="/class" element={<ClassPage />} />
             <Route path="/mentee" element={<MenteePage />} />
+            <Route path="/feedback/:id" element={<DetailFeedPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
