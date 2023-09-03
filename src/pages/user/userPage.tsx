@@ -227,7 +227,7 @@ const UserPage = () => {
                             <div className="flex gap-2 py-2 justify-end">
                               <button
                                 type="submit"
-                                onClick={() => handleClose()}
+                                onClick={() => handleCloseEdit()}
                                 className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center"
                               >
                                 Cancel

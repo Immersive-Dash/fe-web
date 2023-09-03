@@ -185,6 +185,7 @@ const MenteePage = () => {
                             </div>
                             <div className="flex gap-2 py-2 justify-center">
                               <button
+                                onClick={() => handleCloseEdit()}
                                 type="button"
                                 className="font-semibold text-white bg-red-500 hover:bg-red-700 rounded-full text-sm px-10 py-3 text-center"
                               >
