@@ -1,7 +1,7 @@
 import { LuEdit, LuTrash, LuBookOpen } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 const MenteePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="p-10">
       <div className="flex p-4 justify-between items-center">
@@ -19,6 +19,7 @@ const MenteePage = () => {
             Search
           </button>
           <button
+            onClick={() => navigate('/mentee-add')}
             type="button"
             className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center"
           >
@@ -95,7 +96,10 @@ const MenteePage = () => {
               <td className="px-6 py-4">IT</td>
               <td className="px-6 py-4">Male</td>
               <td className="px-6 py-4 flex gap-2 justify-between">
-                <div className="cursor-pointer" onClick={() => navigate('/feedback/12')}>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => navigate('/feedback/12')}
+                >
                   <LuBookOpen size={20} />
                 </div>
                 <div className="cursor-pointer">
@@ -121,7 +125,7 @@ const MenteePage = () => {
             type="button"
             className="font-medium text-black bg-blacke hover:bg-[#3E31DF] hover:text-white border-2 rounded-full text-[12px] px-10 py-2 text-center"
           >
-            Next{' '}
+            Next
           </button>
         </div>
       </div>
