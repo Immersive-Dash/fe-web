@@ -167,7 +167,7 @@ const UserPage = () => {
                         </button>
                         <div className="px-6 py-6 lg:px-8">
                           <h3 className="mb-4 text-xl font-bold text-black">
-                            Add User
+                            Edit User
                           </h3>
                           <form className="space-y-4" action="#">
                             <div className="flex gap-3">
