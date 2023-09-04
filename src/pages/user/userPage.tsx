@@ -41,7 +41,7 @@ const UserPage = () => {
                 <LuXCircle size={20} />
               </button>
               <div className="px-6 py-6 lg:px-8">
-                <h3 className="mb-4 text-xl font-semibold text-black">
+                <h3 className="mb-4 text-2xl font-semibold text-black">
                   Add User
                 </h3>
                 <form className="space-y-4" action="#">
@@ -91,13 +91,13 @@ const UserPage = () => {
                     <button
                       type="submit"
                       onClick={() => handleClose()}
-                      className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-5 py-2.5 text-center"
+                      className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className=" text-white bg-[#03034F] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-8 py-2.5 text-center"
+                      className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                     >
                       Add
                     </button>
@@ -168,7 +168,7 @@ const UserPage = () => {
                           <LuXCircle size={20} />
                         </button>
                         <div className="px-6 py-6 lg:px-8">
-                          <h3 className="mb-4 text-xl font-bold text-black">
+                          <h3 className="mb-4 text-2xl font-semibold text-black">
                             Edit User
                           </h3>
                           <form className="space-y-4" action="#">
@@ -226,19 +226,19 @@ const UserPage = () => {
                               </div>
                             </div>
 
-                            <div className="flex gap-2 py-2 justify-center">
+                            <div className="flex gap-2 py-2 justify-end">
                               <button
                                 type="submit"
                                 onClick={() => handleCloseEdit()}
-                                className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-5 py-2.5 text-center"
+                                className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                               >
                                 Cancel
                               </button>
                               <button
                                 type="submit"
-                                className=" text-white bg-[#03034F] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-8 py-2.5 text-center"
+                                className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                               >
-                                Add
+                                Edit
                               </button>
                             </div>
                           </form>
