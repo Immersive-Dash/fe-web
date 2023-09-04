@@ -20,7 +20,7 @@ const ClassPage = () => {
     <div>
       <div className="p-10">
         <div className="flex p-4 justify-between items-center">
-          <h1 className="font-bold text-2xl">List Class</h1>
+          <h1 className="font-semibold text-2xl">List Class</h1>
           <button
             type="button"
             onClick={() => handleOpen()}
@@ -42,7 +42,7 @@ const ClassPage = () => {
                   <LuXCircle size={20} />
                 </button>
                 <div className="px-6 py-6 lg:px-8">
-                  <h3 className="mb-4 text-xl font-bold text-black">
+                  <h3 className="mb-4 text-xl font-bold text-[#3E31DF]">
                     Add Class
                   </h3>
                   <form className="space-y-4" action="#">
@@ -66,7 +66,7 @@ const ClassPage = () => {
                       </button>
                       <button
                         type="submit"
-                        className=" text-white bg-[#03034F] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center"
+                        className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center"
                       >
                         Add
                       </button>
@@ -79,7 +79,7 @@ const ClassPage = () => {
         )}
         <div className="relative py-4 overflow-x-auto sm:rounded-lg">
           <table className="w-full text-sm text-left border-4 text-black">
-            <thead className="text-xs text-black uppercase border-b-2 border-b-gray-400">
+            <thead className="text-sm text-black uppercase border-b-2 border-b-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   No
@@ -163,7 +163,7 @@ const ClassPage = () => {
                               </button>
                               <button
                                 type="submit"
-                                className=" text-white bg-[#03034F] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center"
+                                className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center"
                               >
                                 Add
                               </button>
@@ -182,15 +182,15 @@ const ClassPage = () => {
           <div className="flex justify-end gap-x-2">
             <button
               type="button"
-              className="font-medium text-blak bg-blak hover:bg-[#3E31DF] hover:text-white border-2  rounded-full text-[12px] px-7 py-2 text-center"
+              className="text-blak bg-blak hover:bg-[#3E31DF] hover:text-white border-2 border-[#3E31DF]  rounded-full text-sm font-semibold px-7 py-2 text-center"
             >
               Previous
             </button>
             <button
               type="button"
-              className="font-medium text-black bg-blacke hover:bg-[#3E31DF] hover:text-white border-2 rounded-full text-[12px] px-10 py-2 text-center"
+              className="text-black bg-blacke hover:bg-[#3E31DF] hover:text-white border-2 border-[#3E31DF] rounded-full text-sm font-semibold px-10 py-2 text-center"
             >
-              Next{' '}
+              Next
             </button>
           </div>
         </div>
