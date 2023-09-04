@@ -42,7 +42,7 @@ const ClassPage = () => {
                   <LuXCircle size={20} />
                 </button>
                 <div className="px-6 py-6 lg:px-8">
-                  <h3 className="mb-4 text-xl font-bold text-[#3E31DF]">
+                  <h3 className="mb-4 text-xl font-bold text-black">
                     Add Class
                   </h3>
                   <form className="space-y-4" action="#">
