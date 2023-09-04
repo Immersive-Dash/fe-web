@@ -11,11 +11,13 @@ const Landing = () => {
         </div>
 
         <div className="justify-center items-center flex flex-col flex-1">
-          <h2 className="mb-7 w-1/2 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, veniam
-            dolore omnis consectetur exercitationem soluta in quisquam ex quas
-            id debitis excepturi dolorum,
-          </h2>
+          <h1 className="mb-7  text-center text-4xl font-bold">
+            "Welcome to&nbsp;
+            <span className="text-[#3E31DF]">
+              Immersive <br />
+              Landing"
+            </span>
+          </h1>
           <button className="rounded-full bg-[#3E31DF] text-white py-3 px-16 font-semibold hover:bg-[#03034F]">
             Log in
           </button>
