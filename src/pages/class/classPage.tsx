@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { LuTrash, LuEdit, LuXCircle } from 'react-icons/lu';
 import Popup from '../../components/popup/popup';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 const ClassPage = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [classs, setClasss] = useState('')
+  const [start, setStart] = useState('')
+  const [graduate, setGraduate] = useState('')
   const handleClose = () => {
     setOpen(false);
   };
@@ -16,6 +21,20 @@ const ClassPage = () => {
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
+
+  const handleAdd = () => {
+    axios.post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
+      class: classs,
+      start_date: start,
+      graduate_date: graduate
+    }).then((response) => {
+      console.log(response.data)
+      setOpen(false)
+      toast.success('Data Class Berhasil Ditambahkan')
+    }).catch((error) => {
+      toast.error(error.response.data)
+    })
+  }
   return (
     <div>
       <div className="p-10">
@@ -52,20 +71,44 @@ const ClassPage = () => {
                       </label>
                       <input
                         type="text"
-                        name="email"
+                        name="text"
+                        onChange={((e) => setClasss(e.target.value))}
+                        className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-black">
+                        Start Date
+                      </label>
+                      <input
+                        type="date"
+                        name="text"
+                        onChange={((e) => setStart(e.target.value))}
+                        className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-black">
+                        Graduate Date
+                      </label>
+                      <input
+                        type="date"
+                        name="text"
+                        onChange={((e) => setGraduate(e.target.value))}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
                     <div className="flex gap-2 py-2 justify-end">
                       <button
-                        type="submit"
+                        type="button"
                         onClick={() => handleClose()}
                         className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center"
                       >
                         Cancel
                       </button>
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={() => handleAdd()}
                         className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-8 py-2.5 text-center"
                       >
                         Add
