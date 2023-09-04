@@ -25,11 +25,11 @@ const Navbar = () => {
 
   return (
     <div className="shadow-lg w-full">
-      <div className="flex justify-between mx-6 my-4">
-        <h1 className="text-[#17345F] text-lg font-semibold">
+      <div className="flex justify-between mx-6 my-4 items-center">
+        <h1 className="text-[#17345F] text-2xl font-semibold">
           Immersive Dashboard
         </h1>
-        <h1 className="text-[#17345F] text-lg font-semibold">
+        <h1 className="text-[#17345F] text-xl font-semibold">
           Halo, {fullname}
         </h1>
       </div>
