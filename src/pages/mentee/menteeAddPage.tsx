@@ -2,33 +2,47 @@ const MenteeAddPage = () => {
   return (
     <div className="w-full">
       <div className="mx-6 ">
-        <h1 className="text-center text-3xl font-semibold py-5">Add Mentee</h1>
+        <h1 className="text-2xl font-semibold py-5">Add Mentee</h1>
         <form action="">
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Name Mentee</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Name Mentee"
-            />
-            <label className="font-semibold">Address</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Address"
-            />
-            <label className="font-semibold">Home Address</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Home Address"
-            />
-            <label className="font-semibold">Email</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Email"
-            />
+          <div className="flex flex-col gap-3">
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Name Mentee</label>
+                <input
+                  className=" border  rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Name Mentee"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Email</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Email"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Address</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Address"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Home Address</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Home Address"
+                />
+              </div>
+            </div>
+
             <label className="font-semibold">Gender</label>
             <div className="flex justify-between w-60">
               <div className="m-2">
@@ -42,29 +56,64 @@ const MenteeAddPage = () => {
               </div>
             </div>
             <h3 className="font-bold text-lg">Emergency Contact</h3>
-            <label className="font-semibold">Telegram URL</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Telegram URL"
-            />
-            <label className="font-semibold">Phone Number</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Phone Number"
-            />
-            <label className="font-semibold">Status</label>
-            <select className="px-3 py-2 w-1/2 rounded bg-slate-200">
-              <option>Anak Pertama</option>
-              <option>Anak Kedua</option>
-            </select>
-            <label className="font-semibold">Status Mentee</label>
-            <select className="px-3 py-2 w-1/2 rounded bg-slate-200">
-              <option>Active</option>
-              <option>Graduate</option>
-            </select>
+
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Telegram URL</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Telegram URL"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Phone Number</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Phone Number"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Status</label>
+                <select className="px-3 py-2  border rounded-sm">
+                  <option>Anak Pertama</option>
+                  <option>Anak Kedua</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Status Mentee</label>
+                <select className="px-3 py-2  border rounded-sm">
+                  <option>Active</option>
+                  <option>Graduate</option>
+                </select>
+              </div>
+            </div>
+
             <h3 className="font-bold text-lg">Education Data</h3>
+
+            <div className="grid grid-cols-2 gap-10">
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Major</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Major"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-semibold">Graduatet</label>
+                <input
+                  className=" border rounded-sm px-3 py-2"
+                  type="text"
+                  placeholder="input Graduatet"
+                />
+              </div>
+            </div>
+
             <label className="font-semibold">Type</label>
             <div className="flex justify-between w-80">
               <div className="m-2">
@@ -77,18 +126,7 @@ const MenteeAddPage = () => {
                 <label>Non Informatic</label>
               </div>
             </div>
-            <label className="font-semibold">Major</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Major"
-            />
-            <label className="font-semibold">Graduatet</label>
-            <input
-              className="w-1/2 bg-slate-200 px-3 py-2"
-              type="text"
-              placeholder="input Graduatet"
-            />
+
             <div className="flex justify-center my-3 gap-3">
               <button
                 type="button"
