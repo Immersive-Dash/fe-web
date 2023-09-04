@@ -28,13 +28,14 @@ const Sidebar = () => {
     const handleLogout = () => {
         localStorage.removeItem('account')
         navigate('/login')
-
     }
+    const getItem: any = localStorage.getItem('account')
+    const data = JSON.parse(getItem)
     useEffect(() => {
         if (!localStorage.getItem('account')) {
             navigate('/login')
         }
-    },[])
+    }, [])
     return (
         <div>
             <div className="space-y-4 bg-white">
@@ -43,6 +44,9 @@ const Sidebar = () => {
                 </div>
                 {
                     sideLink.map((element, index) => {
+                        if (data?.role === "user" && element.to === "/user") {
+                            return null;
+                        }
                         return (
                             <div key={index}>
                                 <div className="space-y-2 font-medium">

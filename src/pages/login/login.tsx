@@ -26,7 +26,7 @@ const Login = () => {
                     if (response.status === 201) {
                         navigate('/dashboard')
                         setStatus(false)
-                        localStorage.setItem('account', response.data)
+                        localStorage.setItem('account', JSON.stringify(response.data))
                     }
                 })
                 .catch((error) => {

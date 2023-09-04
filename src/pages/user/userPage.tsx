@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { LuEdit, LuTrash, LuXCircle } from 'react-icons/lu';
 import Popup from '../../components/popup/popup';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 const UserPage = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [fullName, setFullname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setrole] = useState('')
+
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -16,7 +24,22 @@ const UserPage = () => {
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
+  const handleAdd = () => {
+    axios.post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
+      full_name: fullName,
+      email: email,
+      password: password,
+      role: role,
+    }).then((response) => {
+      console.log(response.data)
+      setOpen(false)
+      toast.success('Data Akun User Berhasil Ditambahkan')
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
   return (
+
     <div className="p-10">
       <div className="flex p-4 justify-between items-center">
         <h1 className="font-semibold text-2xl">List User</h1>
@@ -53,6 +76,7 @@ const UserPage = () => {
                       <input
                         type="text"
                         name="email"
+                        onChange={((e) => setFullname(e.target.value))}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
@@ -63,17 +87,19 @@ const UserPage = () => {
                       <input
                         type="text"
                         name="email"
+                        onChange={((e) => setEmail(e.target.value))}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-black">
-                      Team
+                      Password
                     </label>
                     <input
                       type="text"
-                      name="email"
+                      name="password"
+                      onChange={((e) => setPassword(e.target.value))}
                       className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                     />
                   </div>
@@ -81,7 +107,7 @@ const UserPage = () => {
                     <label className="block text-sm font-semibold text-black">
                       Role
                     </label>
-                    <select className="py-2 px-2 w-full rounded bg-slate-200">
+                    <select onChange={(e) => setrole(e.target.value)} className="py-2 px-2 w-full rounded bg-slate-200">
                       <option>Academic</option>
                       <option>People Skills</option>
                       <option>Placement</option>
@@ -96,7 +122,8 @@ const UserPage = () => {
                       Cancel
                     </button>
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={() => handleAdd()}
                       className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                     >
                       Add

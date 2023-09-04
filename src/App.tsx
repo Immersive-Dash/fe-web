@@ -8,9 +8,14 @@ import ClassPage from './pages/class/classPage';
 import MenteePage from './pages/mentee/menteePage';
 import MenteeAddPage from './pages/mentee/menteeAddPage';
 import DetailFeedPage from './pages/mentee/detailFeedPage';
+import { Toaster } from "react-hot-toast"
 function App() {
   return (
     <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <BrowserRouter>
         <Routes>
           <Route index element={<Landing />} />
