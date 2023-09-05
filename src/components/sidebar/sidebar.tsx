@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { LuHome, LuUsers, LuUser, LuBookMarked } from 'react-icons/lu'
 import { useEffect } from "react";
+import Cookies from "js-cookie"
 const Sidebar = () => {
     const location = useLocation();
     const sideLink = [{
@@ -32,7 +33,7 @@ const Sidebar = () => {
     const getItem: any = localStorage.getItem('account')
     const data = JSON.parse(getItem)
     useEffect(() => {
-        if (!localStorage.getItem('account')) {
+        if (!Cookies.get('account')) {
             navigate('/login')
         }
     }, [])
