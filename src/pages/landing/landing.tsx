@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <section className=" w-screen h-screen">
       <div className="flex md:flex-row flex-col  p-14">
@@ -18,7 +20,10 @@ const Landing = () => {
               Landing"
             </span>
           </h1>
-          <button className="rounded-full bg-[#3E31DF] text-white py-3 px-16 font-semibold hover:bg-[#03034F]">
+          <button
+            onClick={() => navigate('/login')}
+            className="rounded-full bg-[#3E31DF] text-white py-3 px-16 font-semibold hover:bg-[#03034F]"
+          >
             Log in
           </button>
         </div>
