@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Popup from '../../components/popup/popup';
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 interface Data {
   full_name: string;
   class: string;
@@ -15,6 +15,7 @@ const MenteePage = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const navigate = useNavigate();
   const [menteData, setmenteData] = useState<Data[]>([]);
+
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
@@ -22,7 +23,8 @@ const MenteePage = () => {
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
-
+  const getItem: any = Cookies.get('account')
+  const data = JSON.parse(getItem)
   const getMente = async () => {
     try {
       const response = await axios.get(
@@ -69,8 +71,8 @@ const MenteePage = () => {
             <option selected disabled>
               Choose a Class
             </option>
-            <option>BE 18</option>
-            <option>FE 15</option>
+            <option value="FE18">BE 18</option>
+            <option value="FE18">FE 15</option>
           </select>
         </div>
         <div className="flex flex-col">
@@ -79,8 +81,8 @@ const MenteePage = () => {
             <option selected disabled>
               Choose a Class
             </option>
-            <option>Active</option>
-            <option>Graduate</option>
+            <option value="active">Active</option>
+            <option value="graduate">Graduate</option>
           </select>
         </div>
         <div className="flex flex-col">
@@ -89,8 +91,8 @@ const MenteePage = () => {
             <option selected disabled>
               Choose a Category
             </option>
-            <option>IT</option>
-            <option>Non - IT</option>
+            <option value="it">IT</option>
+            <option value="nonit">Non - IT</option>
           </select>
         </div>
         <div className="flex flex-col justify-end">
@@ -148,7 +150,7 @@ const MenteePage = () => {
                     >
                       <LuBookOpen size={20} />
                     </div>
-                    <div className="cursor-pointer">
+                    <div className={`${data.role === 'user' ? 'hidden' : 'block'} cursor-pointer`}>
                       <LuTrash size={20} />
                     </div>
                     <div
