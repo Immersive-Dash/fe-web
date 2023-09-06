@@ -27,11 +27,9 @@ const Sidebar = () => {
     }]
     const navigate = useNavigate()
     const handleLogout = () => {
-        localStorage.removeItem('account')
+        Cookies.remove('account')
         navigate('/login')
     }
-    const getItem: any = localStorage.getItem('account')
-    const data = JSON.parse(getItem)
     useEffect(() => {
         if (!Cookies.get('account')) {
             navigate('/login')
@@ -45,9 +43,6 @@ const Sidebar = () => {
                 </div>
                 {
                     sideLink.map((element, index) => {
-                        if (data?.role === "user" && element.to === "/user") {
-                            return null;
-                        }
                         return (
                             <div key={index}>
                                 <div className="space-y-2 font-medium">

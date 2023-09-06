@@ -19,29 +19,33 @@ const Login = () => {
     }, [navigate])
 
     const handleSubmit = (e: any) => {
-        e.preventDefault()
-        setTimeout(() => {
-            axios.post(`${import.meta.env.VITE_BASE_URL}/login`, {
-                email: email,
-                password: password
+        e.preventDefault();
+        setStatus(true);
+
+        axios.post(`${import.meta.env.VITE_BASE_URL}/login`, {
+            email: email,
+            password: password
+        }, {
+            timeout: 5000
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    navigate('/dashboard');
+                    toast.success("Login Berhasil");
+                    setStatus(false);
+                    Cookies.set('account', JSON.stringify(response.data.data), { expires: 1 / 24 });
+                }
             })
-                .then((response) => {
-                    if (response.status === 200) {
-                        navigate('/dashboard')
-                        toast.success("Login Berhasil")
-                        setStatus(false)
-                        Cookies.set('account', JSON.stringify(response.data.data), { expires: 1 / 24 })
-                    }
-                })
-                .catch((error) => {
-                    if (error.response.status === 500) {
-                        toast.error('email atau password salah')
-                    }
-                    setStatus(false)
-                })
-        }, 500);
-        setStatus(true)
-    }
+            .catch((error) => {
+                if (error.response && error.response.status === 500) {
+                    toast.error('Email atau password salah');
+                } else {
+                    toast.error('Server tidak merespons. Mohon coba lagi nanti.');
+                }
+                setStatus(false);
+            });
+    };
+
     return (
         <>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen md:h-screen lg:py-0">
