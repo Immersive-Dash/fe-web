@@ -8,14 +8,13 @@ import ClassPage from './pages/class/classPage';
 import MenteePage from './pages/mentee/menteePage';
 import MenteeAddPage from './pages/mentee/menteeAddPage';
 import DetailFeedPage from './pages/mentee/detailFeedPage';
-import { Toaster } from "react-hot-toast"
+import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 function App() {
+  axios.defaults.baseURL = 'http://34.136.141.80';
   return (
     <>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-      />
+      <Toaster position="top-right" reverseOrder={false} />
       <BrowserRouter>
         <Routes>
           <Route index element={<Landing />} />

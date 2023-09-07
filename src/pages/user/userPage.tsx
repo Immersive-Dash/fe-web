@@ -10,6 +10,7 @@ interface Data {
   full_name: string;
   team: string;
   email: string;
+  role: string;
 }
 const UserPage = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ const UserPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setrole] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setOpen(false);
@@ -35,41 +36,45 @@ const UserPage = () => {
   };
   useEffect(() => {
     if (!Cookies.get('account')) {
-      navigate('/')
+      navigate('/');
     }
-    getData()
+    getData();
   }, []);
-  const getItem: any = Cookies.get('account')
+  const getItem: any = Cookies.get('account');
 
   const getData = async () => {
-    const token = JSON.parse(getItem)
-    await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/users`,
-      {
+    const token = JSON.parse(getItem);
+    await axios
+      .get(`/users`, {
         headers: {
           Authorization: `Bearer ${token.token}`,
         },
-      }
-    ).then((response) => {
-      setUserData(response.data.data);
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
+      })
+      .then((response) => {
+        setUserData(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleAdd = () => {
-    const token = JSON.parse(getItem)
+    const token = JSON.parse(getItem);
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}/users`, {
-        full_name: fullName,
-        email: email,
-        password: password,
-        role: role,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token.token}`
+      .post(
+        `/users`,
+        {
+          full_name: fullName,
+          email: email,
+          password: password,
+          role: role,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token.token}`,
+          },
         }
-      })
+      )
       .then((response) => {
         console.log(response.data);
         setOpen(false);
@@ -215,7 +220,7 @@ const UserPage = () => {
                   <td className="px-6 py-4">{item.full_name}</td>
                   <td className="px-6 py-4">{item.email}</td>
                   <td className="px-6 py-4">{item.team}</td>
-                  <td className="px-6 py-4">Admin</td>
+                  <td className="px-6 py-4">{item.role}</td>
                   <td className="px-6 py-4">Active</td>
                   <td className="px-6 py-4 flex gap-2">
                     <div className="cursor-pointer">
