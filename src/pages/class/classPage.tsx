@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 const ClassPage = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [classs, setClasss] = useState('')
-  const [start, setStart] = useState('')
-  const [graduate, setGraduate] = useState('')
+  const [classs, setClasss] = useState('');
+  const [classes, setClasses] = useState<[]>([]);
+  const [start, setStart] = useState('');
+  const [graduate, setGraduate] = useState('');
   const handleClose = () => {
     setOpen(false);
   };
@@ -23,29 +24,48 @@ const ClassPage = () => {
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!Cookies.get('account')) {
-      navigate('/')
+      navigate('/');
     }
   }, [navigate]);
-  const getItem: any = Cookies.get('account')
+  const getItem: any = Cookies.get('account');
+
+  const getClass = async () => {
+    const token = JSON.parse(getItem);
+    await axios
+      .get(`/classes`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response) => {
+        setClasses(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleAdd = () => {
-  const token = JSON.parse(getItem)
-    axios.post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
-      class: classs,
-      start_date: start,
-      graduate_date: graduate
-    }).then((response) => {
-      console.log(response.data)
-      setOpen(false)
-      toast.success('Data Class Berhasil Ditambahkan')
-    }).catch((error) => {
-      toast.error(error.response.data)
-    })
-  }
+    const token = JSON.parse(getItem);
+    axios
+      .post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
+        class: classs,
+        start_date: start,
+        graduate_date: graduate,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setOpen(false);
+        toast.success('Data Class Berhasil Ditambahkan');
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      });
+  };
   return (
     <div>
       <div className="p-10">
@@ -83,7 +103,7 @@ const ClassPage = () => {
                       <input
                         type="text"
                         name="text"
-                        onChange={((e) => setClasss(e.target.value))}
+                        onChange={(e) => setClasss(e.target.value)}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
@@ -94,7 +114,7 @@ const ClassPage = () => {
                       <input
                         type="date"
                         name="text"
-                        onChange={((e) => setStart(e.target.value))}
+                        onChange={(e) => setStart(e.target.value)}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
@@ -105,7 +125,7 @@ const ClassPage = () => {
                       <input
                         type="date"
                         name="text"
-                        onChange={((e) => setGraduate(e.target.value))}
+                        onChange={(e) => setGraduate(e.target.value)}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
