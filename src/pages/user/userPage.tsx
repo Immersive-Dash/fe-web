@@ -4,6 +4,7 @@ import Popup from '../../components/popup/popup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
   full_name: string;
@@ -18,6 +19,7 @@ const UserPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setrole] = useState('');
+  const navigate = useNavigate()
 
   const handleClose = () => {
     setOpen(false);
@@ -31,38 +33,42 @@ const UserPage = () => {
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
-
-  const getUser = async () => {
-    try {
-      const accountData = Cookies.get('account');
-      const account = JSON.parse(accountData);
-      const storedToken = account.token;
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/users`,
-        {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        }
-      );
-      console.log(response.data.data);
-      setUserData(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getUser();
+    if (!Cookies.get('account')) {
+      navigate('/')
+    }
+    getData()
   }, []);
+  const getItem: any = Cookies.get('account')
+
+  const getData = async () => {
+    const token = JSON.parse(getItem)
+    await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      }
+    ).then((response) => {
+      setUserData(response.data.data);
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
 
   const handleAdd = () => {
+    const token = JSON.parse(getItem)
     axios
-      .post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
+      .post(`${import.meta.env.VITE_BASE_URL}/users`, {
         full_name: fullName,
         email: email,
         password: password,
         role: role,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token.token}`
+        }
       })
       .then((response) => {
         console.log(response.data);
@@ -73,7 +79,6 @@ const UserPage = () => {
         console.log(error);
       });
   };
-
   return (
     <div className="p-10">
       <div className="flex p-4 justify-between items-center">

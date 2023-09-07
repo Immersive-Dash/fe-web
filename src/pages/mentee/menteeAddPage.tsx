@@ -1,4 +1,15 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 const MenteeAddPage = () => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!Cookies.get('account')) {
+      navigate('/')
+    }
+  }, [navigate]);
+  const getItem: any = Cookies.get('account')
   return (
     <div className="w-full">
       <div className="mx-6 ">

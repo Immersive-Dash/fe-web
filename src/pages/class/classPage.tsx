@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LuTrash, LuEdit, LuXCircle } from 'react-icons/lu';
 import Popup from '../../components/popup/popup';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 const ClassPage = () => {
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -21,8 +23,17 @@ const ClassPage = () => {
   const handleOpenEdit = () => {
     setOpenEdit(true);
   };
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!Cookies.get('account')) {
+      navigate('/')
+    }
+  }, [navigate]);
+  const getItem: any = Cookies.get('account')
 
   const handleAdd = () => {
+  const token = JSON.parse(getItem)
     axios.post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
       class: classs,
       start_date: start,

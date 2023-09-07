@@ -15,6 +15,7 @@ const MenteePage = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const navigate = useNavigate();
   const [menteData, setmenteData] = useState<Data[]>([]);
+  const [data, setData] = useState<any>(null)
 
   const handleOpenEdit = () => {
     setOpenEdit(true);
@@ -23,8 +24,6 @@ const MenteePage = () => {
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
-  const getItem: any = Cookies.get('account')
-  const data = JSON.parse(getItem)
   const getMente = async () => {
     try {
       const response = await axios.get(
@@ -35,9 +34,14 @@ const MenteePage = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
+    if (!Cookies.get('account')) {
+      navigate('/')
+    }
     getMente();
   }, []);
+  const getItem: any = Cookies.get('account')
 
   return (
     <div className="p-10">
@@ -150,7 +154,7 @@ const MenteePage = () => {
                     >
                       <LuBookOpen size={20} />
                     </div>
-                    <div className={`${data.role === 'user' ? 'hidden' : 'block'} cursor-pointer`}>
+                    <div className={`${data && data.role === 'user' ? 'hidden' : 'block'} cursor-pointer`}>
                       <LuTrash size={20} />
                     </div>
                     <div

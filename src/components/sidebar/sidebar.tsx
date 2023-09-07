@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { LuHome, LuUsers, LuUser, LuBookMarked } from 'react-icons/lu'
-import { useEffect } from "react";
+import { LuHome, LuUsers, LuUser, LuBookMarked, LuLogOut } from 'react-icons/lu'
 import Cookies from "js-cookie"
 const Sidebar = () => {
     const location = useLocation();
@@ -30,16 +29,11 @@ const Sidebar = () => {
         Cookies.remove('account')
         navigate('/login')
     }
-    useEffect(() => {
-        if (!Cookies.get('account')) {
-            navigate('/login')
-        }
-    }, [])
     return (
         <div>
             <div className="space-y-4 bg-white">
                 <div className="px-4 py-5">
-                    Alterra Immersive Dashboard
+                    <img src="../../../public/logo.png" className="w-3/5" alt="" />
                 </div>
                 {
                     sideLink.map((element, index) => {
@@ -60,8 +54,13 @@ const Sidebar = () => {
                         )
                     })
                 }
-                <div className="absolute bottom-0 px-4 py-10">
-                    <button type="button" onClick={() => handleLogout()} className="font-semibold text-black border-4 border-[#03034F] bg-white hover:bg-[#03034F] hover:text-white rounded-full text-sm px-10 py-3 text-center">logout</button>
+                <div className="absolute bottom-0 px-1 md:px-2 lg:px-2 py-10">
+                    <div onClick={() => handleLogout()} className="font-semibold md:block lg:block text-black border-4 border-[#03034F] bg-white hover:bg-[#03034F] hover:text-white rounded-full text-sm px-2 lg:px-10 md:px-10 py-3 text-center">
+                        <div className="flex items-center gap-2">
+                        <LuLogOut />
+                        <span className="hidden md:block lg:block">logout</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

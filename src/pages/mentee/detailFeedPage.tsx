@@ -1,14 +1,24 @@
-import { useState } from 'react'
 import Popup from '../../components/popup/popup'
 import { LuXCircle } from 'react-icons/lu'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const DetailFeedPage = () => {
     const [open, setOpen] = useState(false)
+
     const handleClose = () => {
         setOpen(false)
     }
     const handleOpen = () => {
         setOpen(true)
     }
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!Cookies.get('account')) {
+            navigate('/')
+        }
+    }, [navigate]);
+    const getItem: any = Cookies.get('account')
     return (
         <div className="px-8 py-10 container mx-auto">
             <div className="grid grid-cols-12 items-center px-4">
