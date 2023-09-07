@@ -15,7 +15,7 @@ const MenteePage = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const navigate = useNavigate();
   const [menteData, setmenteData] = useState<Data[]>([]);
-  const [data, setData] = useState<any>(null)
+  const [data, setData] = useState<any>(null);
 
   const handleOpenEdit = () => {
     setOpenEdit(true);
@@ -37,11 +37,11 @@ const MenteePage = () => {
 
   useEffect(() => {
     if (!Cookies.get('account')) {
-      navigate('/')
+      navigate('/');
     }
     getMente();
   }, []);
-  const getItem: any = Cookies.get('account')
+  const getItem: any = Cookies.get('account');
 
   return (
     <div className="p-10">
@@ -150,11 +150,21 @@ const MenteePage = () => {
                   <td className="px-6 py-4 flex gap-2 justify-between">
                     <div
                       className="cursor-pointer"
-                      onClick={() => navigate('/feedback/12')}
+                      onClick={() =>
+                        navigate('/feedback/12', {
+                          state: {
+                            id: element.id,
+                          },
+                        })
+                      }
                     >
                       <LuBookOpen size={20} />
                     </div>
-                    <div className={`${data && data.role === 'user' ? 'hidden' : 'block'} cursor-pointer`}>
+                    <div
+                      className={`${
+                        data && data.role === 'user' ? 'hidden' : 'block'
+                      } cursor-pointer`}
+                    >
                       <LuTrash size={20} />
                     </div>
                     <div
