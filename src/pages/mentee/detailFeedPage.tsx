@@ -1,13 +1,15 @@
 import Popup from '../../components/popup/popup';
 import { LuXCircle } from 'react-icons/lu';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 const DetailFeedPage = () => {
   const [open, setOpen] = useState(false);
   const [feedback, setFeedback] = useState<[]>([]);
   const getItem: any = Cookies.get('account');
+  const location = useLocation();
+  const id = location?.state?.id;
 
   const getFeedback = async (id: number) => {
     const token = JSON.parse(getItem);
@@ -32,9 +34,13 @@ const DetailFeedPage = () => {
     setOpen(true);
   };
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!Cookies.get('account')) {
       navigate('/');
+    }
+    if (id) {
+      getFeedback(id);
     }
   }, [navigate]);
 
