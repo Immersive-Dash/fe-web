@@ -21,7 +21,6 @@ const Login = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         setStatus(true);
-
         axios.post(`${import.meta.env.VITE_BASE_URL}/login`, {
             email: email,
             password: password
@@ -40,22 +39,22 @@ const Login = () => {
                 if (error.response && error.response.status === 500) {
                     toast.error('Email atau password salah');
                 } else {
-                    toast.error('Server tidak merespons. Mohon coba lagi nanti.');
+                    toast.error('Server tidak merespon. Mohon coba lagi nanti.');
                 }
                 setStatus(false);
             });
     };
 
     return (
-        <>
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen md:h-screen lg:py-0">
-                <div className="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
+        <section>
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen md:h-screen bg-gradient-to-r from-slate-100 to-slate-300 lg:py-0">
+                <div className="w-full bg-gray-50 rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <div className="space-y-3">
                             <h1 className="text-xl flex justify-center text-black font-bold leading-tight tracking-tightmd:text-2xl">
                                 Login
                             </h1>
-                            <p className="text-sm text-[#423E3E] text-center">enter your credentials to acess your account</p>
+                            <p className="text-sm text-[#423E3E] text-center">Enter your credentials to acess your account</p>
                         </div>
                         <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                             <div>
@@ -91,7 +90,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </section>
     )
 }
 
