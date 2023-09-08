@@ -60,7 +60,6 @@ const DetailFeedPage = () => {
         console.log(error)
       })
   }
-
   const handleClose = () => {
     setOpen(false);
   };

@@ -28,6 +28,7 @@ const MenteePage = () => {
   const [inpclass, setInpclass] = useState('')
   const [status, setStatus] = useState('')
   const [category, setCategory] = useState('')
+  const [role, setRole] = useState('')
   const [menteeid, setEditMenteeId] = useState(0)
 
   const getItem: any = Cookies.get('account');
@@ -95,16 +96,18 @@ const MenteePage = () => {
         console.log(error)
       })
   }
-
+  const getRole = () => {
+    const token = JSON.parse(getItem)
+    setRole(token.role)
+  }
   useEffect(() => {
     if (!Cookies.get('account')) {
       navigate('/');
     }
-
+    getRole()
     handleshowClass()
     getMente();
   }, []);
-
   const formik = useFormik({
     initialValues: {
       full_name: "",
@@ -113,7 +116,8 @@ const MenteePage = () => {
       class: 1,
       telegram: "",
       ephone: "",
-      status: ""
+      status: "",
+      education_type: ""
     },
     onSubmit: (values) => {
       const token = JSON.parse(getItem)
@@ -124,7 +128,8 @@ const MenteePage = () => {
         telegram: values.telegram,
         status: values.status,
         emergency_phone: values.ephone,
-        class: values.class
+        class: values.class,
+        education_type: values.education_type
       }, {
         headers: {
           Authorization: `Bearer ${token.token}`
@@ -208,12 +213,6 @@ const MenteePage = () => {
                   Status
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Gender
-                </th>
-                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
               </tr>
@@ -228,8 +227,6 @@ const MenteePage = () => {
                     <td className="px-6 py-4">{element.full_name}</td>
                     <td className="px-6 py-4">{element.class}</td>
                     <td className="px-6 py-4">{element.status}</td>
-                    <td className="px-6 py-4">{element.education_type}</td>
-                    <td className="px-6 py-4">{element.gender}</td>
                     <td className="px-6 py-4 flex gap-2 justify-between">
                       <div
                         className="cursor-pointer"
@@ -246,7 +243,7 @@ const MenteePage = () => {
 
                       <div
                         onClick={() => deleteMentee(element.id)}
-                        className={`${data && data.role === 'user' ? 'hidden' : 'block'
+                        className={`${role && role === 'user' ? 'hidden' : 'block'
                           } cursor-pointer`}
                       >
                         <LuTrash size={20} />
@@ -359,8 +356,15 @@ const MenteePage = () => {
                                   <div className="flex flex-col gap-2">
                                     <label className="font-semibold">Class</label>
                                     <select onChange={formik.handleChange} value={formik.values.class} name='class' className="px-3 py-2  border rounded-sm">
-                                      <option value={1}>Frontend Batch 15</option>
-                                      <option value={2}>Backend Batch 20</option>
+                                      <option value={1}>FE 1</option>
+                                      <option value={2}>BE 1</option>
+                                    </select>
+                                  </div>
+                                  <div className="flex flex-col gap-2">
+                                    <label className="font-semibold">Category</label>
+                                    <select onChange={formik.handleChange} value={formik.values.education_type} name='education_type' className="px-3 py-2  border rounded-sm">
+                                      <option value="IT">IT</option>
+                                      <option value="Non-IT">Non-IT</option>
                                     </select>
                                   </div>
                                   <div className="flex gap-2 py-2 justify-center">
