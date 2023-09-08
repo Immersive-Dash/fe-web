@@ -1,33 +1,14 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
-  const [fullname, setFullname] = useState<string>('');
-
-  const getName = () => {
-    axios
-      .get('https://64f40da6932537f4051a17d5.mockapi.io/nav-name')
-      .then((response) => {
-        const data = response.data;
-
-        const { fullName } = data[0];
-
-        setFullname(fullName);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    getName();
-  });
+  const getItem: any = Cookies.get('account');
+  const getEmail = JSON.parse(getItem);
 
   return (
     <div className="shadow-lg w-full">
       <div className="flex justify-end mx-6 my-4 items-center">
         <h1 className="text-[#17345F] text-xl font-semibold">
-          Halo, {fullname}
+          Halo, {getEmail.email}
         </h1>
       </div>
     </div>
