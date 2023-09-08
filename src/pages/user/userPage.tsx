@@ -21,8 +21,15 @@ const UserPage = () => {
   const [fullName, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setrole] = useState('');
+  const [team, setTeam] = useState(1);
+  const [role, setRole] = useState('');
+  const [fullNameEdit, setFullnameEdit] = useState('');
+  const [emailEdit, setEmailEdit] = useState('');
+  const [passwordEdit, setPasswordEdit] = useState('');
+  const [teamEdit, setTeamEdit] = useState(1);
+  const [roleEdit, setRoleEdit] = useState('');
   const [isRole, setIsRole] = useState('');
+  const [userId, setUserId] = useState(0);
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -64,7 +71,60 @@ const UserPage = () => {
       });
   };
 
+  const deleteUser = (id: number) => {
+    const token = JSON.parse(getItem);
+    axios
+      .delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success('Data User Berhasil di Hapus');
+        }
+        getData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleEdit = () => {
+    const token = JSON.parse(getItem);
+    axios
+      .put(
+        `/users/${userId}`,
+        {
+          full_name: fullNameEdit,
+          email: emailEdit,
+          password: passwordEdit,
+          id_team: teamEdit,
+          role: roleEdit,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.message === 200) {
+          toast('Success Mengedit Data User');
+          setOpenEdit(false);
+        }
+        getData();
+      })
+      .catch((error) => {
+        if (error.response.data.code === 500) {
+          toast.error('Gagal Mengedit Data User');
+          setOpenEdit(false);
+        }
+      });
+  };
+
   const handleAdd = () => {
+    console.log(fullName, email, password, team, role);
     const token = JSON.parse(getItem);
     axios
       .post(
@@ -73,6 +133,7 @@ const UserPage = () => {
           full_name: fullName,
           email: email,
           password: password,
+          id_team: team,
           role: role,
         },
         {
@@ -85,9 +146,10 @@ const UserPage = () => {
         console.log(response.data);
         setOpen(false);
         toast.success('Data Akun User Berhasil Ditambahkan');
+        getData();
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
       });
   };
   return (
@@ -130,6 +192,7 @@ const UserPage = () => {
                         type="text"
                         name="email"
                         onChange={(e) => setFullname(e.target.value)}
+                        value={fullName}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
@@ -141,6 +204,7 @@ const UserPage = () => {
                         type="text"
                         name="email"
                         onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                       />
                     </div>
@@ -153,20 +217,32 @@ const UserPage = () => {
                       type="text"
                       name="password"
                       onChange={(e) => setPassword(e.target.value)}
+                      value={password}
                       className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                     />
                   </div>
                   <div className="w-full">
                     <label className="block text-sm font-semibold text-black">
+                      Team
+                    </label>
+                    <select
+                      onChange={(e) => setTeam(e.target.value)}
+                      className="py-2 px-2 w-full rounded bg-slate-200"
+                    >
+                      <option value={1}>Academic</option>
+                      <option value={2}>People Skills</option>
+                      <option value={3}>Placement</option>
+                      <option value={4}>Admission</option>
+                    </select>
+                    <label className="block text-sm font-semibold text-black">
                       Role
                     </label>
                     <select
-                      onChange={(e) => setrole(e.target.value)}
+                      onChange={(e) => setRole(e.target.value)}
                       className="py-2 px-2 w-full rounded bg-slate-200"
                     >
-                      <option>Academic</option>
-                      <option>People Skills</option>
-                      <option>Placement</option>
+                      <option value="Admin">admin</option>
+                      <option value="User">user</option>
                     </select>
                   </div>
                   <div className="flex gap-2 py-2 justify-end">
@@ -193,7 +269,7 @@ const UserPage = () => {
       )}
       <div className="relative py-4 overflow-x-auto sm:rounded-lg">
         {userData.length === 0 ? (
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             <Spinner w={true} />
           </div>
         ) : (
@@ -215,9 +291,7 @@ const UserPage = () => {
                 <th scope="col" className="px-6 py-3">
                   Role
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  Status
-                </th>
+
                 {isRole === 'admin' && (
                   <th scope="col" className="px-6 py-3">
                     Action
@@ -236,7 +310,6 @@ const UserPage = () => {
                     <td className="px-6 py-4">{item.email}</td>
                     <td className="px-6 py-4">{item.team}</td>
                     <td className="px-6 py-4">{item.role}</td>
-                    <td className="px-6 py-4">Active</td>
                     {isRole === 'admin' && (
                       <td className="px-6 py-4 flex gap-2">
                         <div
@@ -251,11 +324,17 @@ const UserPage = () => {
                         >
                           <LuBookOpen size={20} />
                         </div>
-                        <div className="cursor-pointer">
+                        <div
+                          onClick={() => deleteUser(item.id)}
+                          className="cursor-pointer"
+                        >
                           <LuTrash size={20} />
                         </div>
                         <div
-                          onClick={() => handleOpenEdit()}
+                          onClick={() => {
+                            setUserId(item.id);
+                            handleOpenEdit();
+                          }}
                           className="cursor-pointer"
                         >
                           <LuEdit size={20} />
@@ -284,7 +363,11 @@ const UserPage = () => {
                                         </label>
                                         <input
                                           type="text"
-                                          name="email"
+                                          name="full_name"
+                                          onChange={(e) =>
+                                            setFullnameEdit(e.target.value)
+                                          }
+                                          value={fullNameEdit}
                                           className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                                         />
                                       </div>
@@ -295,6 +378,24 @@ const UserPage = () => {
                                         <input
                                           type="text"
                                           name="email"
+                                          onChange={(e) =>
+                                            setEmailEdit(e.target.value)
+                                          }
+                                          value={emailEdit}
+                                          className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
+                                        />
+                                      </div>
+                                      <div>
+                                        <label className="block text-sm font-semibold text-black">
+                                          Password
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="password"
+                                          onChange={(e) =>
+                                            setPasswordEdit(e.target.value)
+                                          }
+                                          value={passwordEdit}
                                           className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                                         />
                                       </div>
@@ -303,32 +404,39 @@ const UserPage = () => {
                                       <label className="block text-sm font-semibold text-black">
                                         Team
                                       </label>
-                                      <input
-                                        type="text"
-                                        name="email"
-                                        className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
-                                      />
+                                      <select
+                                        onChange={(e) =>
+                                          setTeamEdit(e.target.value)
+                                        }
+                                        className="py-2 px-2 w-full rounded bg-slate-200"
+                                      >
+                                        <option value="Academic">
+                                          Academic
+                                        </option>
+                                        <option value="People Skills">
+                                          People Skills
+                                        </option>
+                                        <option value="Placement">
+                                          Placement
+                                        </option>
+                                        <option value="Admission">
+                                          Admission
+                                        </option>
+                                      </select>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-3">
-                                      <div>
-                                        <label className="block text-sm font-semibold text-black">
-                                          Role
-                                        </label>
-                                        <select className="py-2 px-2 w-full rounded bg-slate-200">
-                                          <option>Academic</option>
-                                          <option>People Skills</option>
-                                          <option>Placement</option>
-                                        </select>
-                                      </div>
-                                      <div>
-                                        <label className="block text-sm font-semibold text-black">
-                                          Status
-                                        </label>
-                                        <select className="py-2 px-2 w-full rounded bg-slate-200">
-                                          <option>Active</option>
-                                          <option>Not-Active</option>
-                                        </select>
-                                      </div>
+                                    <div>
+                                      <label className="block text-sm font-semibold text-black">
+                                        Role
+                                      </label>
+                                      <select
+                                        onChange={(e) =>
+                                          setRoleEdit(e.target.value)
+                                        }
+                                        className="py-2 px-2 w-full rounded bg-slate-200"
+                                      >
+                                        <option value="Admin">admin</option>
+                                        <option value="User">user</option>
+                                      </select>
                                     </div>
 
                                     <div className="flex gap-2 py-2 justify-end">
@@ -341,6 +449,7 @@ const UserPage = () => {
                                       </button>
                                       <button
                                         type="submit"
+                                        onClick={() => handleEdit()}
                                         className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
                                       >
                                         Edit
