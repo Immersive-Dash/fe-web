@@ -110,31 +110,33 @@ const MenteePage = () => {
       full_name: "",
       email: "",
       phone: "",
+      class: 1,
       telegram: "",
-      gender: "",
+      ephone: "",
       status: ""
     },
     onSubmit: (values) => {
       const token = JSON.parse(getItem)
-      console.log(menteeid)
       axios.put(`/mentees/${menteeid}`, {
         full_name: values.full_name,
         email: values.email,
         phone: values.phone,
         telegram: values.telegram,
-        gender: values.gender,
         status: values.status,
+        emergency_phone: values.ephone,
+        class: values.class
       }, {
         headers: {
           Authorization: `Bearer ${token.token}`
         }
       }).then((response) => {
-        if (response.data.message === 200) {
-          toast('Success Mengedit Data Mentee')
-          setOpenEdit(false)
+        if (response.data.code === 200) {
+          toast.success(response.data.message)
         }
+        setOpenEdit(false)
         getMente()
       }).catch((error) => {
+        console.log(error)
         if (error.response.data.code === 500) {
           toast.error("Gagal Mengedit Data mentee")
           setOpenEdit(false)
@@ -348,16 +350,18 @@ const MenteePage = () => {
                                       placeholder="input Telegram URL"
                                     />
                                   </div>
-                                  <label className="font-semibold">Gender</label>
-                                  <div className="flex justify-between w-1/5 items-center">
-                                    <div className="m-2">
-                                      <input onChange={formik.handleChange} checked={formik.values.gender === "male"} name='gender' value='male' className="mr-2" type="radio"></input>
-                                      <label>Male</label>
-                                    </div>
-                                    <div className="m-2">
-                                      <input onChange={formik.handleChange} checked={formik.values.gender === "female"} name='gender' value='female' className="mr-2" type="radio"></input>
-                                      <label>Female</label>
-                                    </div>
+                                  <div className="flex flex-col gap-2">
+                                    <label className=" font-semibold">
+                                      Emergency Phone
+                                    </label>
+                                    <input
+                                      className=" w-full bg-slate-200 px-3 py-2"
+                                      type="text"
+                                      name='ephone'
+                                      onBlur={formik.handleBlur}
+                                      onChange={formik.handleChange}
+                                      placeholder="input Emergency Phone"
+                                    />
                                   </div>
                                   <div className="flex flex-col gap-2">
                                     <label className="font-semibold">Status</label>
@@ -376,6 +380,13 @@ const MenteePage = () => {
                                       <option value='graduate'>Graduate</option>
                                     </select>
                                   </div>
+                                  <div className="flex flex-col gap-2">
+                                    <label className="font-semibold">Class</label>
+                                    <select onChange={formik.handleChange} value={formik.values.class} name='class' className="px-3 py-2  border rounded-sm">
+                                      <option value={1}>Frontend Batch 15</option>
+                                      <option value={2}>Backend Batch 20</option>
+                                    </select>
+                                  </div>
                                   <div className="flex gap-2 py-2 justify-center">
                                     <button
                                       type="button"
@@ -387,7 +398,7 @@ const MenteePage = () => {
                                       type="submit"
                                       className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center"
                                     >
-                                      Edit
+                                      Submit
                                     </button>
                                   </div>
                                 </form>
