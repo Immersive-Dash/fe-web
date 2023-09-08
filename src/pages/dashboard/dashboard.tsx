@@ -8,7 +8,6 @@ const Dashboard = () => {
       navigate('/')
     } else {
       const getData: any = Cookies.get('account')
-      const token = JSON.parse(getData)
     }
   }, [navigate]);
 

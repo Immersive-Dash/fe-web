@@ -52,20 +52,28 @@ const ClassPage = () => {
   const handleAdd = () => {
     const token = JSON.parse(getItem);
     axios
-      .post(`https://62c3aad4876c4700f540123e.mockapi.io/users`, {
+      .post(`/classes`, {
         class: classs,
         start_date: start,
         graduate_date: graduate,
+      },{
+        headers:{
+          Authorization: `Bearer ${token.token}`
+        }
       })
       .then((response) => {
         console.log(response.data);
         setOpen(false);
         toast.success('Data Class Berhasil Ditambahkan');
+        getClass()
       })
       .catch((error) => {
         toast.error(error.response.data);
       });
   };
+  useEffect(()=>{
+    getClass()
+  })
   return (
     <div>
       <div className="p-10">

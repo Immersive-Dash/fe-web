@@ -148,26 +148,6 @@ const MenteePage = () => {
     <div className="p-10">
       <div className="flex p-4 justify-between items-center">
         <h1 className="font-semibold text-2xl">List Mentee</h1>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            className="bg-slate-200 py-2 px-2 rounded"
-            placeholder="Search"
-          />
-          <button
-            type="button"
-            className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center"
-          >
-            Search
-          </button>
-          <button
-            onClick={() => navigate('/mentee-add')}
-            type="button"
-            className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center"
-          >
-            Add New
-          </button>
-        </div>
       </div>
       <div className="flex justify-end px-4 gap-2">
         <div className="flex flex-col">

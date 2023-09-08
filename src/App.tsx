@@ -12,7 +12,7 @@ import DetailFeedPage from './pages/mentee/detailFeedPage';
 import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 function App() {
-  axios.defaults.baseURL = 'http://34.136.141.80';
+  axios.defaults.baseURL = 'http://34.136.141.80:443';
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />

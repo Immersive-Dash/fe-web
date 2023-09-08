@@ -8,7 +8,7 @@ const Landing = () => {
           <div className="col-span-6 hidden md:block lg:block px-4">
             <div className="flex justify-center items-center h-full">
               <img
-                src="../../../public/landing.png"
+                src="/src/landing.png"
                 className="w-full"
                 alt=""
               />
