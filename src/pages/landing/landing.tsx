@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import image from '../../assets/landing.png'
 const Landing = () => {
   const navigate = useNavigate();
   return (
@@ -8,7 +9,7 @@ const Landing = () => {
           <div className="col-span-6 hidden md:block lg:block px-4">
             <div className="flex justify-center items-center h-full">
               <img
-                src="/src/landing.png"
+                src={image}
                 className="w-full"
                 alt=""
               />
