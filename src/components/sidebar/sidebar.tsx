@@ -31,7 +31,7 @@ const Sidebar = () => {
     }
     return (
         <div>
-            <div className="space-y-4 bg-white">
+            <div className="space-y-4 h-screen bg-white">
                 <div className="px-4 py-5">
                     <img src="../../../public/logo.png" className="w-3/5" alt="" />
                 </div>
@@ -54,8 +54,8 @@ const Sidebar = () => {
                         )
                     })
                 }
-                <div className="absolute bottom-0 px-1 md:px-2 lg:px-2 py-10">
-                    <div onClick={() => handleLogout()} className="font-semibold md:block lg:block text-black border-4 border-[#03034F] bg-white hover:bg-[#03034F] hover:text-white rounded-full text-sm px-2 lg:px-10 md:px-10 py-3 text-center">
+                <div className="absolute bottom-3 left-5">
+                    <div onClick={() => handleLogout()} className="font-semibold  md:block lg:block text-black border-4 border-[#03034F] bg-white hover:bg-[#03034F] hover:text-white rounded-full text-sm px-2 lg:px-10 md:px-10 py-3 text-center">
                         <div className="flex items-center gap-2">
                         <LuLogOut />
                         <span className="hidden md:block lg:block">logout</span>

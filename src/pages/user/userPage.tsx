@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../components/spinner/spinner';
 
 interface Data {
   id: number;
@@ -191,90 +192,116 @@ const UserPage = () => {
         </Popup>
       )}
       <div className="relative py-4 overflow-x-auto sm:rounded-lg">
-        <table className="w-full text-sm text-left border-4 text-black">
-          <thead className=" text-black uppercase border-b-2 border-b-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                No
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Full Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Team
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Role
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              {isRole === 'admin' && (
+        {userData.length === 0 ? (
+          <div className='flex justify-center'>
+            <Spinner w={true} />
+          </div>
+        ) : (
+          <table className="w-full text-sm text-left border-4 text-black">
+            <thead className=" text-black uppercase border-b-2 border-b-gray-400">
+              <tr>
                 <th scope="col" className="px-6 py-3">
-                  Action
+                  No
                 </th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {userData.map((item, index) => {
-              return (
-                <tr key={index} className="bg-white border-b">
-                  <th scope="row" className="px-6 py-4">
-                    {index + 1}
+                <th scope="col" className="px-6 py-3">
+                  Full Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Email
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Team
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Role
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Status
+                </th>
+                {isRole === 'admin' && (
+                  <th scope="col" className="px-6 py-3">
+                    Action
                   </th>
-                  <td className="px-6 py-4">{item.full_name}</td>
-                  <td className="px-6 py-4">{item.email}</td>
-                  <td className="px-6 py-4">{item.team}</td>
-                  <td className="px-6 py-4">{item.role}</td>
-                  <td className="px-6 py-4">Active</td>
-                  {isRole === 'admin' && (
-                    <td className="px-6 py-4 flex gap-2">
-                      <div
-                        className="cursor-pointer"
-                        onClick={() =>
-                          navigate(`/detail-user/${item.id}`, {
-                            state: {
-                              id: item.id,
-                            },
-                          })
-                        }
-                      >
-                        <LuBookOpen size={20} />
-                      </div>
-                      <div className="cursor-pointer">
-                        <LuTrash size={20} />
-                      </div>
-                      <div
-                        onClick={() => handleOpenEdit()}
-                        className="cursor-pointer"
-                      >
-                        <LuEdit size={20} />
-                      </div>
-                      {openEdit && (
-                        <Popup onConfirm={handleCloseEdit}>
-                          <div className="relative w-full max-w-md max-h-full">
-                            <div className="relative bg-white rounded-lg shadow">
-                              <button
-                                type="button"
-                                onClick={() => handleCloseEdit()}
-                                className="absolute top-3 right-2.5 bg-transparent hover:bg-gray-200 rounded-full text-black w-8 h-8 inline-flex justify-center items-center"
-                                data-modal-hide="authentication-modal"
-                              >
-                                <LuXCircle size={20} />
-                              </button>
-                              <div className="px-6 py-6 lg:px-8">
-                                <h3 className="mb-4 text-2xl font-semibold text-black">
-                                  Edit User
-                                </h3>
-                                <form className="space-y-4" action="#">
-                                  <div className="flex gap-3">
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {userData.map((item, index) => {
+                return (
+                  <tr key={index} className="bg-white border-b">
+                    <th scope="row" className="px-6 py-4">
+                      {index + 1}
+                    </th>
+                    <td className="px-6 py-4">{item.full_name}</td>
+                    <td className="px-6 py-4">{item.email}</td>
+                    <td className="px-6 py-4">{item.team}</td>
+                    <td className="px-6 py-4">{item.role}</td>
+                    <td className="px-6 py-4">Active</td>
+                    {isRole === 'admin' && (
+                      <td className="px-6 py-4 flex gap-2">
+                        <div
+                          className="cursor-pointer"
+                          onClick={() =>
+                            navigate(`/detail-user/${item.id}`, {
+                              state: {
+                                id: item.id,
+                              },
+                            })
+                          }
+                        >
+                          <LuBookOpen size={20} />
+                        </div>
+                        <div className="cursor-pointer">
+                          <LuTrash size={20} />
+                        </div>
+                        <div
+                          onClick={() => handleOpenEdit()}
+                          className="cursor-pointer"
+                        >
+                          <LuEdit size={20} />
+                        </div>
+                        {openEdit && (
+                          <Popup onConfirm={handleCloseEdit}>
+                            <div className="relative w-full max-w-md max-h-full">
+                              <div className="relative bg-white rounded-lg shadow">
+                                <button
+                                  type="button"
+                                  onClick={() => handleCloseEdit()}
+                                  className="absolute top-3 right-2.5 bg-transparent hover:bg-gray-200 rounded-full text-black w-8 h-8 inline-flex justify-center items-center"
+                                  data-modal-hide="authentication-modal"
+                                >
+                                  <LuXCircle size={20} />
+                                </button>
+                                <div className="px-6 py-6 lg:px-8">
+                                  <h3 className="mb-4 text-2xl font-semibold text-black">
+                                    Edit User
+                                  </h3>
+                                  <form className="space-y-4" action="#">
+                                    <div className="flex gap-3">
+                                      <div>
+                                        <label className="block text-sm font-semibold text-black">
+                                          Full Name
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="email"
+                                          className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
+                                        />
+                                      </div>
+                                      <div>
+                                        <label className="block text-sm font-semibold text-black">
+                                          Email
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="email"
+                                          className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
+                                        />
+                                      </div>
+                                    </div>
                                     <div>
                                       <label className="block text-sm font-semibold text-black">
-                                        Full Name
+                                        Team
                                       </label>
                                       <input
                                         type="text"
@@ -282,77 +309,57 @@ const UserPage = () => {
                                         className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                                       />
                                     </div>
-                                    <div>
-                                      <label className="block text-sm font-semibold text-black">
-                                        Email
-                                      </label>
-                                      <input
-                                        type="text"
-                                        name="email"
-                                        className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
-                                      />
+                                    <div className="grid grid-cols-2 gap-3">
+                                      <div>
+                                        <label className="block text-sm font-semibold text-black">
+                                          Role
+                                        </label>
+                                        <select className="py-2 px-2 w-full rounded bg-slate-200">
+                                          <option>Academic</option>
+                                          <option>People Skills</option>
+                                          <option>Placement</option>
+                                        </select>
+                                      </div>
+                                      <div>
+                                        <label className="block text-sm font-semibold text-black">
+                                          Status
+                                        </label>
+                                        <select className="py-2 px-2 w-full rounded bg-slate-200">
+                                          <option>Active</option>
+                                          <option>Not-Active</option>
+                                        </select>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div>
-                                    <label className="block text-sm font-semibold text-black">
-                                      Team
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="email"
-                                      className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
-                                    />
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-3">
-                                    <div>
-                                      <label className="block text-sm font-semibold text-black">
-                                        Role
-                                      </label>
-                                      <select className="py-2 px-2 w-full rounded bg-slate-200">
-                                        <option>Academic</option>
-                                        <option>People Skills</option>
-                                        <option>Placement</option>
-                                      </select>
-                                    </div>
-                                    <div>
-                                      <label className="block text-sm font-semibold text-black">
-                                        Status
-                                      </label>
-                                      <select className="py-2 px-2 w-full rounded bg-slate-200">
-                                        <option>Active</option>
-                                        <option>Not-Active</option>
-                                      </select>
-                                    </div>
-                                  </div>
 
-                                  <div className="flex gap-2 py-2 justify-end">
-                                    <button
-                                      type="submit"
-                                      onClick={() => handleCloseEdit()}
-                                      className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
-                                    >
-                                      Cancel
-                                    </button>
-                                    <button
-                                      type="submit"
-                                      className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
-                                    >
-                                      Edit
-                                    </button>
-                                  </div>
-                                </form>
+                                    <div className="flex gap-2 py-2 justify-end">
+                                      <button
+                                        type="submit"
+                                        onClick={() => handleCloseEdit()}
+                                        className=" text-white bg-[#E05252] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
+                                      >
+                                        Cancel
+                                      </button>
+                                      <button
+                                        type="submit"
+                                        className=" text-white bg-[#3E31DF] focus:ring-4 focus:outline-none font-semibold rounded-full text-sm px-10 py-2 text-center"
+                                      >
+                                        Edit
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Popup>
-                      )}
-                    </td>
-                  )}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                          </Popup>
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
       <div>
         <div className="flex justify-end gap-x-2">

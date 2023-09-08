@@ -58,9 +58,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-12 mx-5">
-        <div className="bg-slate-200 h-72">Chart</div>
-      </div>
     </div>
   );
 };
