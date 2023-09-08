@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios'
 import { useFormik } from 'formik';
@@ -7,8 +7,6 @@ import { toast } from 'react-hot-toast';
 import { validationSchema } from '../../formik/formik';
 const MenteeAddPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  location?.state.id
 
   useEffect(() => {
     if (!Cookies.get('account')) {
@@ -74,7 +72,7 @@ const MenteeAddPage = () => {
         console.log(error.response.data)
         if (error.response.data.code === 500) {
           toast.error("Data Harus Berbeda")
-        }else{
+        } else {
           toast.error("Gagal menambahkan Data")
         }
       })

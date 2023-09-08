@@ -4,28 +4,62 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+
+interface DataMentee {
+  full_name: string,
+  class: string,
+  education_type: string,
+  phone: string,
+  telegram: string,
+  email: string
+}
+interface Datafeedback {
+  notes: string,
+  status: string
+}
+interface Datauser {
+  id_mentee: number,
+  name: string
+}
 const DetailFeedPage = () => {
   const [open, setOpen] = useState(false);
-  const [feedback, setFeedback] = useState<[]>([]);
+  const [datamentee, setDataMentee] = useState<DataMentee>();
+  const [feedback, setFeedback] = useState<Datafeedback[]>([]);
+  const [datauser, setDatauser] = useState<Datauser[]>([]);
   const getItem: any = Cookies.get('account');
   const location = useLocation();
   const id = location?.state?.id;
 
-  const getFeedback = async (id: number) => {
+  const getuser = async () => {
     const token = JSON.parse(getItem);
     await axios
-      .get(`/mentee/${id}/feedback`, {
+      .get(`/mentees/${id}`, {
         headers: {
           Authorization: `Bearer ${token.token}`,
         },
       })
       .then((response) => {
-        setFeedback(response.data);
+        setDataMentee(response.data.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
       });
   };
+
+  const getFeedback = () => {
+    const token = JSON.parse(getItem)
+    axios.get(`/mentees/${id}/feedback`, {
+      headers: {
+        Authorization: `Bearer ${token.token}`
+      }
+    })
+      .then((response) => {
+        setFeedback(response.data.data[0].feedbacks)
+        setDatauser(response.data.data)
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -39,11 +73,9 @@ const DetailFeedPage = () => {
     if (!Cookies.get('account')) {
       navigate('/');
     }
-    if (id) {
-      getFeedback(id);
-    }
+    getuser();
+    getFeedback();
   }, [navigate]);
-
   return (
     <div className="px-8 py-10 container mx-auto">
       <div className="grid grid-cols-12 items-center px-4">
@@ -51,44 +83,45 @@ const DetailFeedPage = () => {
           <h1 className="font-semibold text-2xl">Feedback</h1>
         </div>
         <div className="col-span-6">
-          <div className="flex flex-col">
-            <div>
-              <h1 className="text-3xl font-bold">Asep Udin</h1>
-            </div>
-            <div>
-              <p className="text-xl">Frontend Batch 15</p>
-            </div>
-            <div>
-              <h1 className="text-xl  ">TI</h1>
-            </div>
-            <div>
-              <h1 className="text-xl">Universitas Brawijaya</h1>
-            </div>
-          </div>
+          {
+            datamentee ? (
+              <div className="flex flex-col">
+                <div>
+                  <h1 className="text-3xl font-bold"> Nama : {datamentee.full_name}</h1>
+                </div>
+                <div>
+                  <p className="text-md"> <span className='font-semibold'>Class :</span>  {datamentee.class ? datamentee.class : "belum ada class"}</p>
+                </div>
+                <div>
+                  <h1 className="text-md"> <span className='font-semibold'>Education :</span>{datamentee.education_type ? datamentee.education_type : "belum ada riwayat edukasi"}</h1>
+                </div>
+              </div>
+            ) : null
+          }
+
         </div>
         <div className="col-span-6 flex justify-end">
-          <div className="flex flex-col gap-2">
-            <div>
-              <h1 className="text-xl font-semibold">
-                phone : <span className="font-normal"> 085729830543</span>{' '}
-              </h1>
-            </div>
-            <div>
-              <p className="text-xl font-semibold">
-                telegram : <span className="font-normal"> @udinasep</span>
-              </p>
-            </div>
-            <div>
-              <p className="text-xl font-semibold">
-                discord : <span className="font-normal"> @udinasep#123</span>{' '}
-              </p>
-            </div>
-            <div>
-              <p className="text-xl font-semibold">
-                email : <span className="font-normal"> udinasep@gmail.com</span>
-              </p>
-            </div>
-          </div>
+          {
+            datamentee ? (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <h1 className="text-xl font-semibold">
+                    phone : <span className="font-normal"> {datamentee.phone} </span>
+                  </h1>
+                </div>
+                <div>
+                  <p className="text-xl font-semibold">
+                    telegram : <span className="font-normal"> {datamentee.telegram}</span>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xl font-semibold">
+                    email : <span className="font-normal"> {datamentee.email}</span>
+                  </p>
+                </div>
+              </div>
+            ) : null
+          }
         </div>
       </div>
       <div className="w-full flex justify-end py-5  items-center px-4">
@@ -161,29 +194,38 @@ const DetailFeedPage = () => {
           </div>
         </Popup>
       )}
-      <div className="space-y-3">
-        <div className="border-2 flex gap-2 rounded-md border-black p-2">
-          <div className="text-lg w-1/4 font-semibold">
-            <h1>End of Section</h1>
-            <h1>Bagas</h1>
-            <p>Sep 01, 2023</p>
-          </div>
-          <div className="gap-y-4 flex flex-col">
-            <p className="text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <div className="font-semibold text-lg">
-              <p>Change Status: Continue Section</p>
+      {
+        feedback ? (feedback.map((element, index) => {
+          return (
+            <div className="space-y-3" key={index}>
+              <div className="border-2 flex gap-2 rounded-md border-black p-2">
+                {
+                  datauser.map((element, index) => {
+                    return (
+                      <div key={index} className="text-lg w-1/4 font-semibold">
+                        <h1> ID {element.id_mentee}</h1>
+                        <h1>{element.name}</h1>
+                      </div>
+                    )
+                  })
+                }
+                <div className="gap-y-4 flex flex-col">
+                  <p className="text-lg">
+                    {element.notes}
+                  </p>
+                  <div className="font-semibold text-lg">
+                    <p>Status {element.status}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          )
+        })) : (
+          <>
+          Tidak Ada Data Feedback
+          </>
+        )
+      }
     </div>
   );
 };

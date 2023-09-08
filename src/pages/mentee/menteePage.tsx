@@ -161,11 +161,7 @@ const MenteePage = () => {
             Search
           </button>
           <button
-            onClick={() => navigate('/mentee-add', {
-              state: {
-                id: 12
-              }
-            })}
+            onClick={() => navigate('/mentee-add')}
             type="button"
             className="font-semibold text-white bg-[#3E31DF] hover:bg-[#03034F] rounded-full text-sm px-10 py-3 text-center"
           >
