@@ -385,6 +385,8 @@ const UserPage = () => {
                                           className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                                         />
                                       </div>
+                                    </div>
+                                    <div>
                                       <div>
                                         <label className="block text-sm font-semibold text-black">
                                           Password
@@ -399,8 +401,6 @@ const UserPage = () => {
                                           className=" border border-gray-300 text-black text-sm rounded-sm  block w-full p-2.5"
                                         />
                                       </div>
-                                    </div>
-                                    <div>
                                       <label className="block text-sm font-semibold text-black">
                                         Team
                                       </label>
