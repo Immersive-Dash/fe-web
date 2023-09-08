@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LuEdit, LuTrash, LuXCircle } from 'react-icons/lu';
+import { LuEdit, LuTrash, LuXCircle, LuBookOpen } from 'react-icons/lu';
 import Popup from '../../components/popup/popup';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 interface Data {
+  id: number;
   full_name: string;
   team: string;
   email: string;
@@ -232,6 +233,18 @@ const UserPage = () => {
                   <td className="px-6 py-4">Active</td>
                   {isRole === 'admin' && (
                     <td className="px-6 py-4 flex gap-2">
+                      <div
+                        className="cursor-pointer"
+                        onClick={() =>
+                          navigate(`/detail-user/${item.id}`, {
+                            state: {
+                              id: item.id,
+                            },
+                          })
+                        }
+                      >
+                        <LuBookOpen size={20} />
+                      </div>
                       <div className="cursor-pointer">
                         <LuTrash size={20} />
                       </div>

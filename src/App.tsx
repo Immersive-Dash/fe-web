@@ -4,6 +4,7 @@ import Landing from './pages/landing/landing';
 import Dashboard from './pages/dashboard/dashboard';
 import Login from './pages/login/login';
 import UserPage from './pages/user/userPage';
+import DetailUserPage from './pages/user/detailUserPage';
 import ClassPage from './pages/class/classPage';
 import MenteePage from './pages/mentee/menteePage';
 import MenteeAddPage from './pages/mentee/menteeAddPage';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user" element={<UserPage />} />
+            <Route path="/detail-user/:id" element={<DetailUserPage />} />
             <Route path="/class" element={<ClassPage />} />
             <Route path="/mentee" element={<MenteePage />} />
             <Route path="/mentee-add" element={<MenteeAddPage />} />
